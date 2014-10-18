@@ -4,7 +4,7 @@
 
 import UIKit
 
-class Node<T> {
+class Node<T: Equatable> {
     var value: T?
     var next: Node? = nil
     
@@ -13,7 +13,7 @@ class Node<T> {
     }
 }
 
-class LinkedList <T> {
+class LinkedList <T: Equatable> {
     var head: Node<T>? = nil
     
     func insert(value: T) {
@@ -66,6 +66,12 @@ class LinkedList <T> {
 
 
 var linkedList = LinkedList<Int>()
+linkedList.insert(100)
+linkedList.insert(200)
+linkedList.insert(300)
+
+
+linkedList.remove(200)
 
 
 
