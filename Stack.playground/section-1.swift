@@ -21,10 +21,19 @@ class Stack {
             return nil
         }
     }
+    
+    func peep() -> String? {
+        if let value = stackArray.last {
+            return value
+        }
+        return nil
+    }
 }
 
 var myStack = Stack()
 
 myStack.push("Brad")
 myStack.push("Bro")
-var top = myStack.pop()
+myStack.push("Yo")
+myStack.pop()
+myStack.peep()
