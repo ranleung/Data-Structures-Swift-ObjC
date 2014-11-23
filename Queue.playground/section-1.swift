@@ -22,4 +22,18 @@ class Queue {
             return nil
         }
     }
+    
+    func peek() -> String? {
+        if let value = queueArray.first {
+            return queueArray.first
+        }
+        return nil
+    }
 }
+
+var myQueue = Queue()
+myQueue.enqueue("Hello")
+myQueue.enqueue("Bye")
+myQueue.enqueue("Yo")
+myQueue.dequeue()
+myQueue.peek()
