@@ -2,90 +2,99 @@
 
 //Implemetning Linked List
 
+//insert
+//insertHead
+//remove
+//printAllKeys
+
+
 import UIKit
 
 class Node<T: Equatable> {
-    var value: T?
+    var value: T? = nil
     var next: Node? = nil
-    
-    init(_ value:T) {
-        self.value = value
-    }
 }
 
-class LinkedList <T: Equatable> {
-    var head: Node<T>? = nil
+class LinkedList<T: Equatable> {
     
+    var head = Node<T>()
+    
+    //insert at the end
     func insert(value: T) {
-        //0th case when the list is initally empty
-        if head == nil {
-            head = Node<T>(value)
+        //find to see if empty list
+        if self.head.value == nil {
+            self.head.value = value
         } else {
-            var lastNode = head
-            //Finding the last node on the list
-            while lastNode?.next != nil {
-                lastNode = lastNode?.next
+            //find last node with a value
+            var lastNode = self.head
+            while lastNode.next != nil {
+                lastNode = lastNode.next!
             }
-        
-            //Once found
-            let newNode = Node(value)
-            lastNode?.next = newNode
+            
+            //once found, create a new node and connect to the next value
+            let newNode = Node<T>()
+            newNode.value = value
+            lastNode.next = newNode
+        }
+    }
+    
+    func insertHead(value: T) {
+        if self.head.value == nil {
+            self.head.value == value
+        } else {
+            let newNode = Node<T>()
+            newNode.value = value
+            newNode.next = self.head
+            self.head = newNode
         }
     }
     
     func remove(value: T) {
-        //Case 1: Target node is the head
-        //Case 2: Target node is the tail
-        //Case 3: Target node is middle
-        
-        if head != nil {
-            var node = head
-            var previousNode: Node<T>? = nil
-            while (node?.value != value) && (node?.next != nil) {
+        if self.head.value != nil {
+            var node = self.head
+            //Need to keep track of the previous node
+            var previousNode = Node<T>()
+            //Find the node with the value and if it exists in this list
+            //If found (node.value == value), exit the loop
+            while node.value != value && node.next != nil {
+                //previous node is current node
                 previousNode = node
-                node = node?.next
-                
+                node = node.next!
             }
             
-            if node?.value == value {
-                if node?.next != nil {
-                    previousNode?.next = nil
-                }
-                else {
-                    previousNode?.next = node?.next
+            //When found, connect the previous node to the current node's next
+            if node.value == value {
+                if node.next != nil {
+                    previousNode.next = node.next
+                } else {
+                    //If at the end, the next is nil
+                    previousNode.next = nil
                 }
             }
         }
     }
     
+    func printAllKeys() {
+        var current: Node! = self.head
+        println("------------------")
+        //assign the next instance
+        while current != nil {
+            println("The item is: \(current.value!)")
+            current = current.next
+        }
+    }
     
     
 }
 
 
-
-
-var linkedList = LinkedList<Int>()
-linkedList.insert(100)
-linkedList.insert(200)
-linkedList.insert(300)
-
-
-linkedList.remove(200)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+var myList = LinkedList<Int>()
+myList.insert(100)
+myList.insert(200)
+myList.insert(300)
+myList.remove(300)
+myList.remove(300)
+myList.printAllKeys()
 
 
 

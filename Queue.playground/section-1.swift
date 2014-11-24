@@ -10,7 +10,7 @@ class Queue {
     var queueArray = [String]()
     
     func enqueue(stringToEnqueue : String) {
-    self.queueArray.append(stringToEnqueue)
+        self.queueArray.append(stringToEnqueue)
     }
     
     func dequeue() -> String? {
