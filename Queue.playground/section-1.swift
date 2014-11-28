@@ -4,6 +4,7 @@ import UIKit
 
 var str = "Hello, playground"
 
+//Queue - First in, First out, FIFO
 
 class Queue {
     
@@ -14,10 +15,8 @@ class Queue {
     }
     
     func dequeue() -> String? {
-        if !queueArray.isEmpty {
-            var dequeuedString = queueArray.first
-            queueArray.removeAtIndex(0)
-            return dequeuedString!
+        if self.queueArray.first != nil {
+            return queueArray.removeAtIndex(0)
         } else {
             return nil
         }

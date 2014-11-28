@@ -7,7 +7,7 @@ import Foundation
 class HashTable {
     
     var size: Int
-    var count = 0
+    var fillBucket = 0
     private var buckets: Array<HashBucket!>
     
     //initalize the buckets
@@ -17,7 +17,7 @@ class HashTable {
         self.buckets = Array<HashBucket!>(count: size, repeatedValue: nil)
         
         /*
-        note: same as...
+        //note: same as...
         for i in 0..<size {
             var bucket = HashBucket()
             self.buckets.append(bucket)
@@ -82,7 +82,7 @@ class HashTable {
             while(current.key != nil && current != nil) {
                 if(current.key == key) {
                     println("\(key) found in hash table")
-                    self.count++
+                    self.fillBucket++
                     return true
                 }
                 println("now searching key through the chained list")
@@ -111,7 +111,7 @@ class HashTable {
                 } else {
                     previousBucket?.next = bucket.next
                 }
-                self.count--
+                self.fillBucket--
                 return
             }
         }
@@ -125,10 +125,6 @@ class HashBucket {
     var next: HashBucket!
 
 }
-
-
-
-
 
 
 

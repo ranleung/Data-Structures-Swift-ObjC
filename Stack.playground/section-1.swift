@@ -2,7 +2,7 @@
 
 import UIKit
 
-var str = "Hello, playground"
+//Stack - Last in, First out - LIFO
 
 class Stack {
     
@@ -13,9 +13,9 @@ class Stack {
     }
     
     func pop() ->String? {
-        if !self.stackArray.isEmpty {
+        if self.stackArray.last != nil {
             var stringToReturn = self.stackArray.last
-        self.stackArray.removeLast()
+            self.stackArray.removeLast()
             return stringToReturn!
         } else {
             return nil

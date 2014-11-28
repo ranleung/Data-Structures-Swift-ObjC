@@ -50,6 +50,10 @@ class LinkedList<T: Equatable> {
     }
     
     func remove(value: T) {
+        if self.head.value == value {
+            self.head = self.head.next!
+        }
+        
         if self.head.value != nil {
             var node = self.head
             //Need to keep track of the previous node
@@ -78,7 +82,7 @@ class LinkedList<T: Equatable> {
         var current: Node! = self.head
         println("------------------")
         //assign the next instance
-        while current != nil {
+        while current != nil && current.value != nil {
             println("The item is: \(current.value!)")
             current = current.next
         }
@@ -92,11 +96,8 @@ var myList = LinkedList<Int>()
 myList.insert(100)
 myList.insert(200)
 myList.insert(300)
-myList.remove(300)
-myList.remove(300)
+myList.remove(100)
 myList.printAllKeys()
-
-
 
 
 

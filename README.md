@@ -6,3 +6,4 @@ Data Structures written in Swift and Objective-C
 + Queue
 + Single Linked List
 + Hash Tables
++ Binary Search Tree
