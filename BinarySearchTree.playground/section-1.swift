@@ -36,7 +36,7 @@ class BinarySearchTree<T: Comparable> {
                 var leftChild = BinarySearchTree()
                 leftChild.key = key
                 self.left = leftChild
-                println(key)
+                println("\(key)")
             }
         }
         
@@ -50,7 +50,7 @@ class BinarySearchTree<T: Comparable> {
                 var rightChild = BinarySearchTree()
                 rightChild.key = key
                 self.right = rightChild
-                println(key)
+                println("\(key)")
             }
         }
         
@@ -58,19 +58,48 @@ class BinarySearchTree<T: Comparable> {
             println("Duplicate value: \(key)")
             return
         }
-        
     }
     
+    //Traversal require O(n) since it must visit every node
+    //inOrderTraversal - node.left, node.value, node.right
+    func inOrderTraversal() {
+        
+        //If nothing in Tree
+        if self.key == nil {
+            println("No Key")
+            return
+        }
+        
+        //traverse left side
+        if self.left != nil {
+            self.left?.inOrderTraversal()
+        }
+        
+        println("Key is: \(self.key!)")
+        
+        //traverse right side
+        if self.right != nil {
+            self.right?.inOrderTraversal()
+        }
+    }
     
-    
+    //preOrderTraversal - node.value, node.left, node.right
+    //postOrderTraversal - node.left, node.value, node.right
     
 }
+
+
 
 
 var root = BinarySearchTree<Int>()
 root.addNode(13)
 root.addNode(15)
-root.addNode(13)
+root.addNode(16)
+root.addNode(12)
+root.addNode(100)
+root.addNode(1)
+root.inOrderTraversal()
+
 
 
 
