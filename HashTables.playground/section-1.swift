@@ -8,7 +8,7 @@ class HashTable {
     
     var size: Int
     var fillBucket = 0
-    private var buckets: Array<HashBucket!>
+    var buckets: Array<HashBucket!>
     
     //initalize the buckets
     init(size: Int) {
@@ -19,8 +19,8 @@ class HashTable {
         /*
         //note: same as...
         for i in 0..<size {
-            var bucket = HashBucket()
-            self.buckets.append(bucket)
+        var bucket = HashBucket()
+        self.buckets.append(bucket)
         }
         */
     }
@@ -41,15 +41,18 @@ class HashTable {
     }
     
     //add key using a specific hash
-    func addWord(key: String, value: AnyObject) {
+    func addWord(key: String, value: String) {
         
         var hashindex = self.createHash(key)
+        println("Hashindex: \(hashindex)")
         
         var bucket = HashBucket()
         var head: HashBucket!
         
         bucket.key = key
         bucket.value = value
+        
+        self.fillBucket++
         
         //check for an existing list
         if (self.buckets[hashindex] == nil) {
@@ -63,14 +66,16 @@ class HashTable {
             
             //update the chianed list
             self.buckets[hashindex] = head
+            println(hashindex)
         }
     }
     
     //determine is the word is found in the hash table
-    func findKey(key: String, value: AnyObject) -> Bool! {
+    func findKey(key: String, value: String) -> Bool! {
         
         var hashIndex = self.createHash(key)
-        
+        println("Finding hashindex: \(hashIndex)")
+
         //determine is the value is present
         if(self.buckets[hashIndex] == nil) {
             println("the key is not found in the hash table")
@@ -79,10 +84,9 @@ class HashTable {
             //iterate through the list of items to find a match
             var current = self.buckets[hashIndex]
             
-            while(current.key != nil && current != nil) {
-                if(current.key == key) {
+            while(current != nil) {
+                if(current.key == key && current.value == value) {
                     println("\(key) found in hash table")
-                    self.fillBucket++
                     return true
                 }
                 println("now searching key through the chained list")
@@ -94,40 +98,66 @@ class HashTable {
     }
     
     //remove object with Key
-    func removeWord(key: String) {
+    func removeWord(key: String, value: String) -> String {
         var hashIndex = self.createHash(key)
         var previousBucket: HashBucket?
         var bucket = self.buckets[hashIndex]
         
-        if(self.buckets[hashIndex] == nil) {
-            println("the key is not found in the hash table")
-            return
+        //check if there is a bucket for this hashIndex
+        if(bucket == nil) {
+            return ("No Bucket at this key exists")
         } else {
             while (bucket != nil) {
-                if (bucket.key == key) {
-                    var nextBucket = bucket.next
+                if (bucket.key == key && bucket.value == value) {
+                    //If there is a previous bucket
+                    if previousBucket != nil {
+                        previousBucket?.next = bucket.next
+                        self.fillBucket--
+                        return("REMOVED: \(key) - \(value)")
+                    }
+                    //If the first one
                     self.buckets[hashIndex] = bucket.next
-                    println("\(key) removed")
+                    self.fillBucket--
+                    return("REMOVED: \(key) - \(value)")
                 } else {
-                    previousBucket?.next = bucket.next
+                    previousBucket = bucket
+                    bucket = bucket.next
                 }
-                self.fillBucket--
-                return
             }
+            return ("KEY WITH VALUE NOT FOUND: \(key) - \(value)")
         }
     }
     
 }
 
+
 class HashBucket {
     var key: String!
-    var value: AnyObject!
+    var value: String!
     var next: HashBucket!
-
+    
 }
 
 
+var myHashTable = HashTable(size: 10)
 
+myHashTable.addWord("brands", value: "apple")
+myHashTable.addWord("clothing", value: "jacket")
+myHashTable.addWord("coffee", value: "latte")
+myHashTable.addWord("brands", value: "samsung")
+myHashTable.addWord("brands", value: "HTC")
+
+myHashTable.findKey("brands", value: "HTC")
+myHashTable.findKey("brands", value: "dsds")
+
+myHashTable.removeWord("dsds", value: "dds")
+myHashTable.removeWord("brands", value: "fdsfds")
+myHashTable.removeWord("brands", value: "HTC")
+myHashTable.removeWord("brands", value: "samsung")
+myHashTable.findKey("brands", value: "HTC")
+
+
+println(myHashTable.fillBucket)
 
 
 

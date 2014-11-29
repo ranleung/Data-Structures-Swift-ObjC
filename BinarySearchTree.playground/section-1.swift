@@ -66,7 +66,7 @@ class BinarySearchTree<T: Comparable> {
         
         //If nothing in Tree
         if self.key == nil {
-            println("No Key")
+            println("Currently no Key")
             return
         }
         
@@ -85,7 +85,6 @@ class BinarySearchTree<T: Comparable> {
     
     //preOrderTraversal - node.value, node.left, node.right
     //postOrderTraversal - node.left, node.value, node.right
-    
 }
 
 
@@ -99,6 +98,7 @@ root.addNode(12)
 root.addNode(100)
 root.addNode(1)
 root.inOrderTraversal()
+
 
 
 
